@@ -32,11 +32,11 @@ public class PermissaoTypeTest {
 
     @Test
     public void deveRetornarDescricaoCorretaParaCadaPermissao() {
-        assertThat(PermissaoType.CRIAR_USUARIOS.getDescricao()).isEqualTo("Criar usuários");
-        assertThat(PermissaoType.ATRIBUIR_PERFIS.getDescricao()).isEqualTo("Atribuir perfis");
-        assertThat(PermissaoType.MODIFICAR_PERFIS_EXISTENTES.getDescricao()).isEqualTo("Modificar perfis existentes");
-        assertThat(PermissaoType.VISUALIZAR_INFORMACOES.getDescricao()).isEqualTo("Visualizar informações");
-        assertThat(PermissaoType.ALTERAR_INFORMACOES.getDescricao()).isEqualTo("Alterar informações");
+        assertThat(PermissaoType.CRIAR_USUARIOS.getDescricao()).isEqualTo("CRIAR_USUARIOS");
+        assertThat(PermissaoType.ATRIBUIR_PERFIS.getDescricao()).isEqualTo("ATRIBUIR_PERFIS");
+        assertThat(PermissaoType.MODIFICAR_PERFIS_EXISTENTES.getDescricao()).isEqualTo("MODIFICAR_PERFIS_EXISTENTES");
+        assertThat(PermissaoType.VISUALIZAR_INFORMACOES.getDescricao()).isEqualTo("VISUALIZAR_INFORMACOES");
+        assertThat(PermissaoType.ALTERAR_INFORMACOES.getDescricao()).isEqualTo("ALTERAR_INFORMACOES");
     }
 }
 

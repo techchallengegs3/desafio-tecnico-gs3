@@ -45,5 +45,18 @@ public class Usuario {
         }
         this.senha = senha;
     }
-}
 
+    public void setEndereco(String endereco) {
+        if (endereco == null || endereco.trim().isEmpty()) {
+            throw new IllegalArgumentException("Endereco não pode ser nulo ou vazio");
+        }
+        this.endereco = endereco;
+    }
+
+    public void setTelefone(String telefone) {
+        if (telefone == null || telefone.trim().isEmpty()) {
+            throw new IllegalArgumentException("Telefone não pode ser nulo ou vazio");
+        }
+        this.telefone = telefone;
+    }
+}

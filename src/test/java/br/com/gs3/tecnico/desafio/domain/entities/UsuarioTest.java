@@ -130,6 +130,32 @@ public class UsuarioTest {
     }
 
     @Test
+    public void deveGerarExcecaoQuandoEnderecoInvalido() {
+        Usuario usuario = new Usuario();
+
+        assertThatThrownBy(() -> usuario.setEndereco(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Endereco não pode ser nulo ou vazio");
+
+        assertThatThrownBy(() -> usuario.setEndereco(""))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Endereco não pode ser nulo ou vazio");
+    }
+
+    @Test
+    public void deveGerarExcecaoQuandoTelefoneInvalido() {
+        Usuario usuario = new Usuario();
+
+        assertThatThrownBy(() -> usuario.setTelefone(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Telefone não pode ser nulo ou vazio");
+
+        assertThatThrownBy(() -> usuario.setTelefone(""))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Telefone não pode ser nulo ou vazio");
+    }
+
+    @Test
     public void deveManterReferenciasDeObjetosCorretamente() {
         Perfil perfil = Perfil.builder().id(1L).tipo(PerfilType.USUARIO_COMUM).build();
         Usuario usuario = Usuario.builder()

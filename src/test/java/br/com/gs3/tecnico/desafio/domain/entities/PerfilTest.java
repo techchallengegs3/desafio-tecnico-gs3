@@ -1,6 +1,7 @@
 package br.com.gs3.tecnico.desafio.domain.entities;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,7 +49,17 @@ public class PerfilTest {
         PerfilType tipo = PerfilType.ADMINISTRADOR;
         Set<PermissaoType> permissoes = Set.of(PermissaoType.MODIFICAR_PERFIS_EXISTENTES);
 
-        Perfil perfil = new Perfil(id, tipo, permissoes);
+        Usuario usuario = Usuario.builder()
+                .id(1L)
+                .nome("Teste Usuário")
+                .email("teste@email.com")
+                .senha("senha123")
+                .build();
+
+        Set<Usuario> usuarios = new HashSet<>();
+        usuarios.add(usuario);
+
+        Perfil perfil = new Perfil(id, tipo, permissoes, usuarios);
 
         assertThat(perfil.getId()).isEqualTo(id);
         assertThat(perfil.getTipo()).isEqualTo(tipo);
