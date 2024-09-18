@@ -33,7 +33,7 @@ public class UsuarioEntity {
     @Column(nullable = false)
     private String telefone;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "perfil_id")
+    @ManyToOne
+    @JoinColumn(name = "perfil_id", nullable = false)
     private PerfilEntity perfil;
 }

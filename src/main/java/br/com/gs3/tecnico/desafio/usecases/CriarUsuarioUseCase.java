@@ -1,14 +1,17 @@
 package br.com.gs3.tecnico.desafio.usecases;
 
-import br.com.gs3.tecnico.desafio.domain.entities.Perfil;
 import br.com.gs3.tecnico.desafio.domain.entities.PerfilType;
 import br.com.gs3.tecnico.desafio.domain.entities.Usuario;
 import br.com.gs3.tecnico.desafio.domain.repositories.UsuarioRepository;
 import br.com.gs3.tecnico.desafio.infrastructure.adapters.PerfilAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CriarUsuarioUseCase {
+
+    private static final Logger logger = LoggerFactory.getLogger(CriarUsuarioUseCase.class);
     private final UsuarioRepository usuarioRepository;
     private final PerfilAdapter perfilAdapter;
 
@@ -29,6 +32,16 @@ public class CriarUsuarioUseCase {
                 .telefone(telefone)
                 .perfil(perfilAdapter.toDomainFromType(perfilType))
                 .build();
+
+        logger.info("usuario.getNome(): " + usuario.getNome());
+        logger.info("usuario.getEmail(): " + usuario.getEmail());
+        logger.info("usuario.getSenha(): " + usuario.getSenha());
+        logger.info("usuario.getEndereco(): " + usuario.getEndereco());
+        logger.info("usuario.getTelefone(): " + usuario.getTelefone());
+        logger.info("usuario.getPerfil() - id: " + usuario.getPerfil().getId());
+        logger.info("usuario.getPerfil() - tipo: " + usuario.getPerfil().getTipo());
+//        logger.info("usuario.getPerfil() - usuarios: " + usuario.getPerfil().getUsuarios().size());
+//        logger.info("usuario.getPerfil() - permissoes: " + usuario.getPerfil().getPermissoes().size());
 
         return usuarioRepository.save(usuario);
     }

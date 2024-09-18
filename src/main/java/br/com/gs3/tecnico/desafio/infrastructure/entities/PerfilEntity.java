@@ -25,7 +25,8 @@ public class PerfilEntity {
     @Column(nullable = false, unique = true)
     private PerfilType tipo;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    // Relacionamento Many-to-Many: Um Perfil tem várias Permissões
+    @ManyToMany
     @JoinTable(
             name = "perfil_permissao",
             joinColumns = @JoinColumn(name = "perfil_id"),

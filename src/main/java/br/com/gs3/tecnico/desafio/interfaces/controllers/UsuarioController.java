@@ -10,17 +10,19 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("api/usuarios")
 @Tag(name = "Usuários", description = "API de Gestão de Usuários")
 public class UsuarioController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UsuarioController.class);
     private final CriarUsuarioUseCase criarUsuarioUseCase;
     private final DeletarUsuarioUseCase deletarUsuarioUseCase;
     private final ListarUsuarioUseCase listarUsuarioUseCase;
@@ -50,6 +52,14 @@ public class UsuarioController {
                 usuarioDTO.getTelefone(),
                 usuarioDTO.getPerfil()
         );
+
+        logger.info("usuarioDTO.getNome(): " + usuarioDTO.getNome());
+        logger.info("usuarioDTO.getEmail(): " + usuarioDTO.getEmail());
+        logger.info("usuarioDTO.getSenha(): " + usuarioDTO.getSenha());
+        logger.info("usuarioDTO.getEndereco(): " + usuarioDTO.getEndereco());
+        logger.info("usuarioDTO.getTelefone(): " + usuarioDTO.getTelefone());
+        logger.info("usuarioDTO.getPerfil() - id: " + usuarioDTO.getPerfil().getId());
+        logger.info("usuarioDTO.getPerfil() - descricao: " + usuarioDTO.getPerfil().getDescricao());
 
         return ResponseEntity.ok(usuario);
     }

@@ -2,89 +2,91 @@ package br.com.gs3.tecnico.desafio.infrastructure.adapters;
 
 import br.com.gs3.tecnico.desafio.domain.entities.PermissaoType;
 import br.com.gs3.tecnico.desafio.infrastructure.entities.PermissaoEntity;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class PermissaoAdapterImplTest {
+class PermissaoAdapterImplTest {
 
-    private final PermissaoAdapterImpl adapter = new PermissaoAdapterImpl();
+    private PermissaoAdapterImpl permissaoAdapter;
+
+    @BeforeEach
+    void setUp() {
+        permissaoAdapter = new PermissaoAdapterImpl();
+    }
 
     @Test
     void deveConverterPermissaoTypeParaPermissaoEntity() {
         PermissaoType permissaoType = PermissaoType.CRIAR_USUARIOS;
-        PermissaoEntity permissaoEntity = adapter.toEntity(permissaoType);
+        PermissaoEntity permissaoEntity = permissaoAdapter.toEntity(permissaoType);
 
-        assertEquals(permissaoType.getCodigo(), permissaoEntity.getCodigo());
-        assertEquals(permissaoType.getDescricao(), permissaoEntity.getDescricao());
+        assertNotNull(permissaoEntity);
+        assertEquals(PermissaoType.CRIAR_USUARIOS, permissaoEntity.getDescricao());
+    }
+
+    @Test
+    void deveRetornarNuloQuandoConverterPermissaoTypeNuloParaPermissaoEntity() {
+        PermissaoEntity permissaoEntity = permissaoAdapter.toEntity(null);
+        assertNull(permissaoEntity);
     }
 
     @Test
     void deveConverterPermissaoEntityParaPermissaoType() {
         PermissaoEntity permissaoEntity = PermissaoEntity.builder()
-                .codigo(PermissaoType.CRIAR_USUARIOS.getCodigo())
-                .descricao(PermissaoType.CRIAR_USUARIOS.getDescricao())
+                .descricao(PermissaoType.ATRIBUIR_PERFIS)
                 .build();
 
-        PermissaoType permissaoType = adapter.toDomain(permissaoEntity);
+        PermissaoType permissaoType = permissaoAdapter.toDomain(permissaoEntity);
+        assertNotNull(permissaoType);
+        assertEquals(PermissaoType.ATRIBUIR_PERFIS, permissaoType);
+    }
 
-        assertEquals(PermissaoType.CRIAR_USUARIOS, permissaoType);
+    @Test
+    void deveRetornarNuloQuandoConverterPermissaoEntityNuloParaPermissaoType() {
+        PermissaoType permissaoType = permissaoAdapter.toDomain(null);
+        assertNull(permissaoType);
     }
 
     @Test
     void deveConverterSetDePermissaoTypeParaSetDePermissaoEntity() {
-        Set<PermissaoType> permissoesType = Set.of(PermissaoType.CRIAR_USUARIOS, PermissaoType.VISUALIZAR_INFORMACOES);
+        Set<PermissaoType> permissoes = new HashSet<>();
+        permissoes.add(PermissaoType.CRIAR_USUARIOS);
+        permissoes.add(PermissaoType.MODIFICAR_PERFIS_EXISTENTES);
 
-        Set<PermissaoEntity> permissoesEntity = adapter.toEntitySet(permissoesType);
+        Set<PermissaoEntity> permissoesEntity = permissaoAdapter.toEntitySet(permissoes);
 
-        assertEquals(permissoesType.size(), permissoesEntity.size());
-        for (PermissaoType permissaoType : permissoesType) {
-            PermissaoEntity permissaoEntity = permissoesEntity.stream()
-                    .filter(pe -> pe.getCodigo().equals(permissaoType.getCodigo()))
-                    .findFirst()
-                    .orElse(null);
-            assertNotNull(permissaoEntity);
-            assertEquals(permissaoType.getDescricao(), permissaoEntity.getDescricao());
-        }
+        assertNotNull(permissoesEntity);
+        assertEquals(2, permissoesEntity.size());
     }
 
     @Test
     void deveConverterSetDePermissaoEntityParaSetDePermissaoType() {
-        Set<PermissaoEntity> permissoesEntity = Set.of(
-                PermissaoEntity.builder()
-                        .codigo(PermissaoType.CRIAR_USUARIOS.getCodigo())
-                        .descricao(PermissaoType.CRIAR_USUARIOS.getDescricao())
-                        .build(),
-                PermissaoEntity.builder()
-                        .codigo(PermissaoType.VISUALIZAR_INFORMACOES.getCodigo())
-                        .descricao(PermissaoType.VISUALIZAR_INFORMACOES.getDescricao())
-                        .build()
-        );
+        Set<PermissaoEntity> permissoesEntity = new HashSet<>();
+        permissoesEntity.add(PermissaoEntity.builder().descricao(PermissaoType.VISUALIZAR_INFORMACOES).build());
+        permissoesEntity.add(PermissaoEntity.builder().descricao(PermissaoType.ALTERAR_INFORMACOES).build());
 
-        Set<PermissaoType> permissoesType = adapter.toDomainSet(permissoesEntity);
+        Set<PermissaoType> permissoesType = permissaoAdapter.toDomainSet(permissoesEntity);
 
-        assertEquals(permissoesEntity.size(), permissoesType.size());
-        for (PermissaoEntity permissaoEntity : permissoesEntity) {
-            PermissaoType permissaoType = permissoesType.stream()
-                    .filter(pt -> pt.getCodigo().equals(permissaoEntity.getCodigo()))
-                    .findFirst()
-                    .orElse(null);
-            assertNotNull(permissaoType);
-            assertEquals(permissaoEntity.getDescricao(), permissaoType.getDescricao());
-        }
+        assertNotNull(permissoesType);
+        assertEquals(2, permissoesType.size());
     }
 
-    private void assertNotNull(PermissaoType permissaoType) {
-        if (permissaoType == null) {
-            throw new AssertionError("PermissãoType não deve ser nulo");
-        }
+    @Test
+    void deveRetornarSetVazioQuandoConverterSetVazioDePermissaoTypeParaPermissaoEntity() {
+        Set<PermissaoEntity> permissoesEntity = permissaoAdapter.toEntitySet(new HashSet<>());
+        assertNotNull(permissoesEntity);
+        assertTrue(permissoesEntity.isEmpty());
     }
 
-    private void assertNotNull(PermissaoEntity permissaoEntity) {
-        if (permissaoEntity == null) {
-            throw new AssertionError("PermissãoEntity não deve ser nulo");
-        }
+    @Test
+    void deveRetornarSetVazioQuandoConverterSetVazioDePermissaoEntityParaPermissaoType() {
+        Set<PermissaoType> permissoesType = permissaoAdapter.toDomainSet(new HashSet<>());
+        assertNotNull(permissoesType);
+        assertTrue(permissoesType.isEmpty());
     }
 }
+

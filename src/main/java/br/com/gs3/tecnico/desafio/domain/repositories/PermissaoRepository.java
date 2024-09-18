@@ -9,7 +9,6 @@ import java.util.Optional;
 public interface PermissaoRepository {
     PermissaoType save(PermissaoType permissaoType);
     Optional<PermissaoType> findById(Long id);
-    Optional<PermissaoType> findByCodigo(Long codigo);
     PermissaoType update(PermissaoType permissaoType);
     void delete(Long id);
     long count();

@@ -7,8 +7,8 @@ public enum PerfilType {
     ADMINISTRADOR(1L, "Administrador"),
     USUARIO_COMUM(2L, "Usuário Comum");
 
-    private final String descricao;
     private final Long id;
+    private final String descricao;
 
     PerfilType(Long id, String descricao) {
         this.id = id;

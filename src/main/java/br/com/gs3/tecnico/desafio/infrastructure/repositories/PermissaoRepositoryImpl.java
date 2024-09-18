@@ -33,12 +33,6 @@ public class PermissaoRepositoryImpl implements PermissaoRepository {
     }
 
     @Override
-    public Optional<PermissaoType> findByCodigo(Long codigo) {
-        return permissaoJpaRepository.findByCodigo(codigo)
-                .map(permissaoAdapter::toDomain);
-    }
-
-    @Override
     public PermissaoType update(PermissaoType permissaoType) {
         Optional<PermissaoEntity> existingEntity = permissaoJpaRepository.findById(permissaoType.getCodigo());
         if (existingEntity.isPresent()) {

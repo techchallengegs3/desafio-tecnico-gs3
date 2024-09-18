@@ -1,5 +1,6 @@
 package br.com.gs3.tecnico.desafio.infrastructure.entities;
 
+import br.com.gs3.tecnico.desafio.domain.entities.PermissaoType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,9 +19,7 @@ public class PermissaoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, unique = true)
-    private Long codigo;
-
-    @Column(nullable = false)
-    private String descricao;
+    private PermissaoType descricao;
 }

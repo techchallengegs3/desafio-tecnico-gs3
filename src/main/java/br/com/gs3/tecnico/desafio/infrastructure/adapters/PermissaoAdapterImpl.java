@@ -10,15 +10,21 @@ public class PermissaoAdapterImpl implements PermissaoAdapter{
 
     @Override
     public PermissaoEntity toEntity(PermissaoType permissaoType) {
+        if (permissaoType == null) {
+            return null;
+        }
+
         return PermissaoEntity.builder()
-                .codigo(permissaoType.getCodigo())
-                .descricao(permissaoType.getDescricao())
+                .descricao(permissaoType)
                 .build();
     }
 
     @Override
     public PermissaoType toDomain(PermissaoEntity permissaoEntity) {
-        return PermissaoType.fromCodigo(permissaoEntity.getCodigo());
+        if (permissaoEntity == null) {
+            return null;
+        }
+        return permissaoEntity.getDescricao();
     }
 
     @Override

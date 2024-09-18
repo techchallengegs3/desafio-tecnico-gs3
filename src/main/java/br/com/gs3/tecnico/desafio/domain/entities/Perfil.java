@@ -15,5 +15,4 @@ public class Perfil {
     private Long id;
     private PerfilType tipo;
     private Set<PermissaoType> permissoes;
-    private Set<Usuario> usuarios;
 }
