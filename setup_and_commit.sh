@@ -4,7 +4,7 @@
 GIT_NAME="Eduardo Almeida"
 GIT_EMAIL="techchallengegs3@gmail.com"
 REPO_URL_SSH="git@github.com-techchallengegs3:techchallengegs3/desafio-tecnico-gs3.git"
-BRANCH="develop"  # ou "master", dependendo do nome do branch principal
+BRANCH="desenv"  # ou "master", dependendo do nome do branch principal
 
 # Solicita a mensagem de commit ao usuário
 read -p "Digite a mensagem de commit: " COMMIT_MESSAGE
